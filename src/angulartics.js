@@ -24,7 +24,7 @@ angulartics.waitForVendorApi = function (objectName, delay, containsField, regis
  * @ngdoc overview
  * @name angulartics
  */
-angular.module('angulartics', [])
+angular.module('angulartics', ['gs.to-snake-case'])
 .provider('$analytics', function () {
   var settings = {
     pageTracking: {
@@ -186,7 +186,7 @@ angular.module('angulartics', [])
   }
 }])
 
-.directive('analyticsOn', ['$analytics', function ($analytics) {
+.directive('analyticsOn', ['$analytics', 'toSnakeCase', function ($analytics, toSnakeCase) {
   function isCommand(element) {
     return ['a:','button:','button:button','button:submit','input:button','input:submit'].indexOf(
       element.tagName.toLowerCase()+':'+(element.type||'')) >= 0;
@@ -209,7 +209,7 @@ angular.module('angulartics', [])
   function propertyName(name) {
     var s = name.slice(9); // slice off the 'analytics' prefix
     if (typeof s !== 'undefined' && s!==null && s.length > 0) {
-      return s.substring(0, 1).toLowerCase() + s.substring(1);
+      return toSnakeCase(s);
     }
     else {
       return s;

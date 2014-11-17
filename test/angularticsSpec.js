@@ -222,6 +222,22 @@ describe('Module: angulartics', function() {
       elem.triggerHandler('click');
       expect(analytics.eventTrack).toHaveBeenCalledWith('InitiateSearch', {category : 'Search', eventType : 'click'});
     });
+
+    it('should send properties in snake_case', function () {
+      elem = angular.element('<div>').attr({
+        'analytics-on': 'click',
+        'analytics-event': 'DigestReading',
+        'analytics-energy-level': 'Over 9000!'
+      });
+      spyOn(analytics, 'eventTrack');
+
+      compileElem();
+      elem.triggerHandler('click');
+      expect(analytics.eventTrack).toHaveBeenCalledWith(
+        'DigestReading',
+        {'energy_level': 'Over 9000!', eventType : 'click'}
+      );
+    });
   });
 
 });

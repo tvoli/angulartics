@@ -22,6 +22,7 @@
   ],
   "dependencies": {
     "angular": ">= 1.1.5",
+    "angular-gs-to-snake-case": ">= 0.1.1",
     "jquery-waypoints": "~v2.0.3",
     "SHA-1": "*"
   },
